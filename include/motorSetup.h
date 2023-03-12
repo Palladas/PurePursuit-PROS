@@ -1,3 +1,11 @@
+/*
+    
+    motorSetup.h
+    Purpose: Used to initalize all motors, sensors, controllers, and classes used on the robot
+
+*/
+
+
 #include "odom.h"
 #include "main.h"
 #include "pid.h"

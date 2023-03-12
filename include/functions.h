@@ -1,3 +1,11 @@
+/*
+    
+    functions.h
+    Purpose: Contains assorted functions used in autonomous.h and main.cpp
+
+*/
+
+
 #include "main.h"
 #include "motorSetup.h"
 
@@ -8,6 +16,7 @@ std::string autons[11] = {"Disabled", "Wings",     "LeftGoal", "LeftAWP",
                           "AWP2",     "VSNUMOGO", "SNUMOGO",  "MNUMOGO",
                           "SoloWP",   "Skills",    "Test"};
 int size = 11; //*(&autons + 1) - autons;
+
 
 void autonSelector() {
   control.clear();
@@ -31,6 +40,8 @@ void autonSelector() {
 slctEnd:
   control.rumble("..");
 }
+
+
 
 void driverControl(double l, double r) {
 

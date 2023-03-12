@@ -1,6 +1,19 @@
+/*
+    
+    odom.h
+    Purpose: Contains the odomController class
+
+*/
+
+
+
 #include "main.h"
 #include "point.h"
 #include "driveTrain.h"
+
+/**
+ * Handles the various deltas relating to the pose exponetial computation. 
+*/
 
 class odomController{
   public:
@@ -36,6 +49,12 @@ class odomController{
     point getPos(){
       return currentPos;
     }
+
+    /**
+	    * Updates the pose based on the current left/right distance traveled and current heading
+	    * \param gyroAngle 
+      * Current heading in radians
+    */
 
     void update(angle gyroAngle){
       std::pair<int,int> currDistance = drive.getDistance();

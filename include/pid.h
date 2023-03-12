@@ -1,4 +1,15 @@
+/*
+
+    pid.h
+    Purpose: Contains the pidController class
+
+*/
+
 #include "main.h"
+
+/**
+  * Handles the various computations related to running a PID controller
+*/
 
 class pidController {
 public:
@@ -12,12 +23,25 @@ public:
                 double integralLimit, double maxLimit, double minLimit)
       : tVal(targetValue), kP(pGain), kI(iGain), kD(dGain), iLim(integralLimit),
         maxLim(maxLimit), minLim(minLimit) {}
+
+
+  /**
+	    * Updates the PID variables based off of the input
+	    * \param inVal 
+      * Current value of the system controlled by the PID
+  */
+
   void update(double inVal) {
     error = tVal - inVal;
     integral += error;
     derivative = error - lasterror;
     lasterror = error;
   }
+
+  /**
+	    * Limits the cases of the PID controller to prevent windup
+  */
+
   void limitCases() {
     if (fabs(out) > maxLim)
       out = getSign(out) * maxLim;
@@ -26,6 +50,12 @@ public:
     if (fabs(integral) > iLim)
       integral = getSign(integral) * iLim;
   }
+
+
+  /**
+	    * Computes an output value based off of updated PID variables
+  */
+
   double calculateOut() {
     out = kP * error + kI * integral + kD * derivative;
     limitCases();

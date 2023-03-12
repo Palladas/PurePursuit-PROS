@@ -1,8 +1,19 @@
+/*
+
+    point.h
+    Purpose: Contains all classes related to computing the pose exponential
+
+*/
+
 #include "main.h"
 #include <cmath>
 #include <iostream>
 
-// class to handle angles
+
+/**
+ * Handles angles (in radians) 
+*/
+
 class angle {
 public:
   double m_v; // value in radians
@@ -45,7 +56,11 @@ public:
   }
 };
 
-// class to handle 1-D distances
+
+/**
+ * Handles vectors in a Cartesian plane 
+*/
+
 class dist {
 public:
   double m_x;
@@ -84,7 +99,10 @@ public:
   dist minus(dist other) { return dist(m_x - other.m_x, m_y - other.m_y); }
 };
 
-// class to handle deltas
+
+/**
+ * Handles linear and rotational deltas
+*/
 
 class delta {
 public:
@@ -101,6 +119,11 @@ public:
   }
 };
 
+
+/**
+ * Handles the transformation between points
+*/
+
 class transformation {
 public:
   dist m_d;
@@ -116,6 +139,11 @@ public:
     m_r = rotation;
   }
 };
+
+
+/**
+ * Functions to output custom classes to the terminal
+*/
 
 std::ostream &operator<<(std::ostream &os, const angle &x) {
   os << " Angle: " << x.m_v << " Cos: " << x.m_cos << " Sin: " << x.m_sin;
@@ -137,11 +165,13 @@ std::ostream &operator<<(std::ostream &os, const transformation &x) {
   return os;
 }
 
-// class that has a magnitude (from the origin) and a rotation
-// can be used to represent robot position
+
+/**
+ * Class used to represent the pose of a robot
+*/
+
 class point {
 public:
-  //----------------------------------
 
   dist m_p;
   angle m_r;
@@ -166,6 +196,14 @@ public:
   }
 
   point plus(transformation other) { return transformBy(other); }
+
+
+  /**
+	    * Computes pose exponential for the current pose and a delta
+	    * \param d 
+      * A delta with the x movement, y movement (0 for non holonomic drives), and rotation
+      * \return Returns a new point based off of the current pose and delta
+    */
 
   point exp(delta d) {
     double dx = d.dx;
@@ -192,7 +230,6 @@ public:
   }
 };
 
-// omg debugging???
 
 std::ostream &operator<<(std::ostream &os, const point &x) {
   os << " Pos: " << x.m_p << " Heading: " << x.m_r;
